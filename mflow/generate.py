@@ -296,8 +296,8 @@ def visualize_interpolation_between_2_points(filepath, model, mol_smiles=None, m
 
     d = z1 - z0
     z_list = [z0 + i*1.0/(n_interpolation+1) * d for i in range(n_interpolation + 2)]
-
-    z_array = torch.tensor(z_list).float()
+    z_list1 = np.array(z_list)
+    z_array = torch.tensor(z_list1).float()
     if device:
         z_array = z_array.to(device)
 
