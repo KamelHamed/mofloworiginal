@@ -126,7 +126,7 @@ def generate_mols_interpolation_grid(model, z0=None, true_adj=None, seed=0,
                 p_center = len(z_list) - 1
 
     # z_array = np.array(z_list, dtype=np.float32)  # (169, 369)
-    z_array = torch.tensor(z_list).float()
+    z_array = torch.tensor(np.array(z_list)).float()
     if device:
         z_array = z_array.to(device)
         if true_adj:
