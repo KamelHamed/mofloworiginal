@@ -33,6 +33,8 @@ if data_name == 'qm9':
     max_atoms = 9
 elif data_name == 'zinc250k':
     max_atoms = 38
+elif data_name == 'data1':
+    max_atoms = 38
 else:
     raise ValueError("[ERROR] Unexpected value data_name={}".format(data_name))
 
@@ -70,15 +72,15 @@ elif data_name == 'zinc250k':
 elif data_name == 'data1':
     print('Preprocessing data1')
     # dataset = datasets.get_zinc250k(preprocessor)
-    df_zink250k = pd.read_csv('data1.csv', index_col=0)
+    df_data1 = pd.read_csv('data1.csv', index_col=False)
     # Caution: Not reasonable but used in used in chain_chemistry\datasets\zinc.py:
     # 'smiles' column contains '\n', need to remove it.
     # Here we do not remove \n, because it represents atom N with single bond
-    labels = ['SMILES']
+    labels = []
     parser = DataFrameParser(preprocessor, labels=labels, smiles_col='SMILES')
-    result = parser.parse(df_zinc250k, return_smiles=True)
+    result = parser.parse(df_data1, return_smiles=True)
     dataset = result['dataset']
-    SMILES = result['SMILES']
+    SMILES = result['smiles']
 else:
     raise ValueError("[ERROR] Unexpected value data_name={}".format(data_name))
 
