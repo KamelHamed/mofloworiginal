@@ -25,7 +25,7 @@ def get_parser():
     parser = argparse.ArgumentParser()
     # data I/O
     parser.add_argument('-i', '--data_dir', type=str, default='../data', help='Location for the dataset')
-    parser.add_argument('--data_name', type=str, default='qm9', choices=['qm9', 'zinc250k'], help='dataset name')
+    parser.add_argument('--data_name', type=str, default='qm9', choices=['qm9', 'zinc250k', 'data1'], help='dataset name')
     # parser.add_argument('-f', '--data_file', type=str, default='qm9_relgcn_kekulized_ggnp.npz', help='Name of the dataset')
     parser.add_argument('-o', '--save_dir', type=str, default='results/qm9',
                         help='Location for parameter checkpoints and samples')
@@ -125,6 +125,18 @@ def train():
     elif args.data_name == 'zinc250k':
         from data import transform_zinc250k
         data_file = 'zinc250k_relgcn_kekulized_ggnp.npz'
+        transform_fn = transform_zinc250k.transform_fn_zinc250k
+        atomic_num_list = transform_zinc250k.zinc250_atomic_num_list  # [6, 7, 8, 9, 15, 16, 17, 35, 53, 0]
+        # mlp_channels = [1024, 512]
+        # gnn_channels = {'gcn': [16, 128], 'hidden': [256, 64]}
+        b_n_type = 4
+        b_n_squeeze = 19   # 2
+        a_n_node = 38
+        a_n_type = len(atomic_num_list)  # 10
+        valid_idx = transform_zinc250k.get_val_ids()
+    elif args.data_name =='data1':
+        from data import transform_zinc250k
+        data_file = 'data1_relgcn_kekulized_ggnp.npz'
         transform_fn = transform_zinc250k.transform_fn_zinc250k
         atomic_num_list = transform_zinc250k.zinc250_atomic_num_list  # [6, 7, 8, 9, 15, 16, 17, 35, 53, 0]
         # mlp_channels = [1024, 512]
