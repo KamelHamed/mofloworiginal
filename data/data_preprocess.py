@@ -15,7 +15,7 @@ from data.smile_to_graph import GGNNPreprocessor
 def parse():
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--data_name', type=str, default='qm9',
-                        choices=['qm9', 'zinc250k'],
+                        choices=['qm9', 'zinc250k', 'data1'],
                         help='dataset to be downloaded')
     parser.add_argument('--data_type', type=str, default='relgcn',
                         choices=['gcn', 'relgcn'],)
