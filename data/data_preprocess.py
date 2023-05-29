@@ -67,6 +67,18 @@ elif data_name == 'zinc250k':
     result = parser.parse(df_zinc250k, return_smiles=True)
     dataset = result['dataset']
     smiles = result['smiles']
+elif data_name == 'data1':
+    print('Preprocessing data1')
+    # dataset = datasets.get_zinc250k(preprocessor)
+    df_zink250k = pd.read_csv('data1.csv', index_col=0)
+    # Caution: Not reasonable but used in used in chain_chemistry\datasets\zinc.py:
+    # 'smiles' column contains '\n', need to remove it.
+    # Here we do not remove \n, because it represents atom N with single bond
+    labels = ['SMILES']
+    parser = DataFrameParser(preprocessor, labels=labels, smiles_col='SMILES')
+    result = parser.parse(df_zinc250k, return_smiles=True)
+    dataset = result['dataset']
+    SMILES = result['SMILES']
 else:
     raise ValueError("[ERROR] Unexpected value data_name={}".format(data_name))
 
